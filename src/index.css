@@ -1,0 +1,162 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Instrument Sans', ui-sans-serif, sans-serif;
+  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --color-paper: #f4f4f2;
+  --color-paper-2: #ebebe8;
+  --color-ink: #111111;
+  --color-ink-soft: #3a3a38;
+  --color-mute: #7a7a74;
+  --color-line: #d6d6d1;
+  --color-line-strong: #111111;
+  --color-mark: #c2410c;
+  --color-on-mark: #fff7ed;
+  --color-danger: #b91c1c;
+}
+
+@layer base {
+  body {
+    @apply min-h-screen bg-paper font-sans text-ink-soft antialiased;
+    background-image:
+      linear-gradient(180deg, rgb(244 244 242) 0%, rgb(235 235 232) 100%),
+      radial-gradient(ellipse 70% 40% at 50% -10%, rgb(17 17 17 / 0.04), transparent 60%);
+  }
+
+  ::selection {
+    background: rgb(194 65 12 / 0.18);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ink;
+  }
+}
+
+@layer components {
+  .field-input {
+    @apply w-full border-0 border-b border-line bg-transparent px-0 py-2.5 text-sm text-ink transition-[border-color];
+  }
+
+  .field-input:focus {
+    @apply border-ink outline-none;
+  }
+
+  .field-input::placeholder {
+    @apply text-mute;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-ink px-5 py-2.5 text-sm font-medium tracking-wide text-paper transition-colors hover:bg-ink-soft;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-ink;
+  }
+
+  .btn-text {
+    @apply text-sm font-medium text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-ink;
+  }
+
+  .select-control {
+    @apply w-full appearance-none border border-line bg-paper py-2.5 pr-10 pl-3 text-sm text-ink transition-[border-color,background-color];
+  }
+
+  .select-control:hover {
+    @apply border-ink/40 bg-paper-2;
+  }
+
+  .select-control:focus {
+    @apply border-ink bg-paper outline-none;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade {
+  animation: fade 0.6s ease both;
+}
+
+.bug-drag-ghost {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  z-index: 9999;
+  width: 260px;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  background: #111111;
+  color: #f4f4f2;
+  border: 1px solid #111111;
+  box-shadow: 8px 12px 0 rgb(194 65 12 / 0.35);
+  pointer-events: none;
+  font-family: 'Instrument Sans', ui-sans-serif, sans-serif;
+}
+
+.bug-drag-ghost__severity {
+  margin: 0;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #fdba74;
+}
+
+.bug-drag-ghost__title {
+  margin: 8px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #f4f4f2;
+}
+
+.bug-drag-ghost__hint {
+  margin: 10px 0 0;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a3a39c;
+}
+
+.bug-card-placeholder {
+  border-top: 1px dashed var(--color-line);
+  border-bottom: 1px dashed var(--color-line);
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 6px,
+    rgb(17 17 17 / 0.03) 6px,
+    rgb(17 17 17 / 0.03) 12px
+  );
+}
+
+.column-drop-active {
+  outline: 1px solid var(--color-ink);
+  outline-offset: -1px;
+  background: rgb(17 17 17 / 0.03);
+}
